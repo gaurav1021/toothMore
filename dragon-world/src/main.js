@@ -16,6 +16,7 @@ const dragonLayer = document.getElementById("dragon-layer")
 
 const dragonSystem = createDragons(dragonLayer)
 const typography = createTypography()
+const ambientAudio = createAmbientAudio()
 
 const TYPOGRAPHY_INTERVAL_MS = 1000 / 8
 
@@ -51,6 +52,89 @@ function handleResize() {
   dragonSystem.resize(window.innerWidth, window.innerHeight)
   typography.invalidate()
   lastTypographyUpdate = -Infinity
+}
+
+function createAmbientAudio() {
+  const control = document.querySelector(".sound-toggle")
+
+  if (control === null) {
+    return null
+  }
+
+  const audio = new Audio(`${import.meta.env.BASE_URL}binks_sake.mp3`)
+  audio.loop = true
+  audio.preload = "metadata"
+  audio.volume = 0.18
+
+  let wantsPlayback = true
+  let hasInteracted = false
+
+  function syncControl() {
+    const isPlaying = !audio.paused && !audio.ended
+    control.textContent = wantsPlayback ? (isPlaying ? "Music On" : "Music Ready") : "Music Off"
+    control.setAttribute("aria-pressed", String(wantsPlayback))
+  }
+
+  async function playAudio() {
+    if (!wantsPlayback) {
+      syncControl()
+      return
+    }
+
+    try {
+      await audio.play()
+    } catch {
+      // Browser autoplay rules can still block playback until a gesture.
+    }
+
+    syncControl()
+  }
+
+  function stopAudio() {
+    audio.pause()
+    syncControl()
+  }
+
+  function unlockAudio() {
+    if (hasInteracted) {
+      return
+    }
+
+    hasInteracted = true
+    playAudio()
+  }
+
+  control.addEventListener("click", () => {
+    wantsPlayback = !wantsPlayback
+
+    if (!wantsPlayback) {
+      stopAudio()
+      return
+    }
+
+    playAudio()
+  })
+
+  document.addEventListener("pointerdown", unlockAudio, { once: true })
+  document.addEventListener("keydown", unlockAudio, { once: true })
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      audio.pause()
+      syncControl()
+      return
+    }
+
+    if (wantsPlayback && hasInteracted) {
+      playAudio()
+    }
+  })
+
+  syncControl()
+
+  return {
+    audio,
+  }
 }
 
 window.addEventListener("resize", handleResize)

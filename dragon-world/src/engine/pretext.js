@@ -39,6 +39,13 @@ export function createTypography() {
         >
           LinkedIn
         </a>
+        <button
+          class="text-action sound-toggle"
+          type="button"
+          aria-pressed="true"
+        >
+          Music On
+        </button>
       </div>
     </div>
     <div class="text-body"></div>
