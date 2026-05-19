@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <!-- Add some subtle gradients to give the dragon depth while keeping the flat vector look -->
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2c35"/>
+      <stop offset="100%" stop-color="#18191e"/>
+    </linearGradient>
+    <linearGradient id="leftWingGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#343745"/>
+      <stop offset="100%" stop-color="#1f212a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- BACKGROUND WING: Placed first so it renders behind the body -->
+  <g class="right-wing" fill="#111216">
+    <!-- Main Right Wing Webbing -->
+    <path d="M 400 320 
+             C 420 150, 350 80, 500 50 
+             C 650 20, 750 100, 750 100 
+             C 680 120, 600 150, 580 180 
+             C 650 220, 680 280, 680 280 
+             C 600 270, 500 290, 400 320 Z" />
+    <!-- Right Wing Bone Structure -->
+    <path d="M 400 320 C 450 180, 500 80, 750 100" stroke="#0a0a0c" stroke-width="6" fill="none" />
+    <path d="M 540 105 C 550 150, 560 170, 580 180" stroke="#0a0a0c" stroke-width="4" fill="none" />
+    <path d="M 470 215 C 500 250, 550 270, 680 280" stroke="#0a0a0c" stroke-width="4" fill="none" />
+  </g>
+
+  <!-- DRAGON BODY: Middle layer -->
+  <g class="body">
+    <!-- Tail (sweeping backwards) -->
+    <path d="M 500 320 
+             C 650 320, 800 360, 950 340 
+             C 900 370, 750 400, 500 380 Z" fill="url(#bodyGrad)"/>
+    
+    <!-- Tail Fins (Signature aesthetic: one dark, one red prosthetic) -->
+    <!-- Top Dark Fin -->
+    <path d="M 850 350 C 880 310, 920 300, 960 315 C 930 340, 890 355, 850 350 Z" fill="#18191e"/>
+    <!-- Bottom Red Fin -->
+    <path d="M 850 350 C 880 390, 920 400, 960 385 C 930 360, 890 345, 850 350 Z" fill="#b02a2a"/>
+
+    <!-- Main Torso & Legs -->
+    <path d="M 280 310 
+             C 380 280, 500 290, 550 330 
+             C 500 400, 350 410, 280 310 Z" fill="url(#bodyGrad)"/>
+             
+    <!-- Hind Leg (tucked for flight) -->
+    <path d="M 450 350 C 420 400, 460 440, 500 450 C 520 420, 500 380, 480 340 Z" fill="#1c1d24"/>
+    <path d="M 500 450 C 510 460, 530 460, 540 450 C 530 440, 510 435, 500 450 Z" fill="#111216"/> <!-- Claws -->
+
+    <!-- Front Leg (tucked for flight) -->
+    <path d="M 320 340 C 290 390, 320 430, 360 440 C 370 410, 350 370, 340 330 Z" fill="url(#bodyGrad)"/>
+    <path d="M 360 440 C 370 450, 390 450, 400 440 C 390 430, 370 425, 360 440 Z" fill="#111216"/> <!-- Claws -->
+
+    <!-- Neck and Head -->
+    <path d="M 500 330 
+             C 120 310, 180 280, 150 250 
+             C 110 210, 80 230, 90 270 
+             C 120 330, 200 370, 300 370 Z" fill="url(#bodyGrad)"/>
+             
+    <!-- Head details (Ear plates / Nubbins) -->
+    <path d="M 120 230 C 120 200, 150 180, 160 170 C 155 190, 140 210, 135 235 Z" fill="#18191e"/>
+    <path d="M 135 240 C 145 205, 175 190, 190 180 C 180 205, 160 220, 150 245 Z" fill="#18191e"/>
+    
+    <!-- Eye (Neon Green Slit) -->
+    <ellipse cx="110" cy="250" rx="8" ry="12" fill="#75ff33" transform="rotate(15 110 250)"/>
+    <ellipse cx="112" cy="250" rx="2" ry="9" fill="#000" transform="rotate(15 112 250)"/>
+  </g>
+
+  <!-- FOREGROUND WING: Placed last so it renders in front of the body -->
+  <g class="left-wing" fill="url(#leftWingGrad)">
+    <!-- Main Left Wing Webbing -->
+    <path d="M 360 340 
+             C 320 180, 200 50, 350 20 
+             C 500 -10, 650 80, 650 80 
+             C 560 110, 480 150, 450 180 
+             C 550 230, 600 300, 600 300 
+             C 500 290, 400 320, 360 340 Z" />
+             
+    <!-- Left Wing Bone Structure -->
+    <path d="M 360 340 C 350 180, 450 50, 650 80" stroke="#18191e" stroke-width="7" fill="none" />
+    <path d="M 430 90 C 440 130, 445 160, 450 180" stroke="#18191e" stroke-width="5" fill="none" />
+    <path d="M 380 220 C 430 260, 500 280, 600 300" stroke="#18191e" stroke-width="5" fill="none" />
+  </g>
+</svg>

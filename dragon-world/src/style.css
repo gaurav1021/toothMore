@@ -1,0 +1,193 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  color: #f4eee3;
+  background: #05070b;
+}
+
+body {
+  overflow: hidden;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(91, 130, 112, 0.12), transparent 36%),
+    radial-gradient(circle at 70% 10%, rgba(133, 67, 45, 0.18), transparent 34%),
+    linear-gradient(180deg, #162127 0%, #0a0f14 42%, #030405 100%);
+  color: #f4eee3;
+  font-family: "Palatino Linotype", "Book Antiqua", Baskerville, Georgia, serif;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+#scene,
+#dragon-layer,
+#text-layer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+#scene {
+  overflow: hidden;
+  will-change: transform;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(239, 171, 107, 0.08), transparent 28%),
+    radial-gradient(circle at 24% 14%, rgba(72, 121, 120, 0.16), transparent 30%),
+    linear-gradient(180deg, rgba(7, 10, 16, 0.34), rgba(2, 3, 5, 0.18));
+}
+
+#scene::before,
+#scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+#scene::before {
+  z-index: 1;
+  background:
+    radial-gradient(circle at 50% 22%, rgba(255, 202, 130, 0.08), transparent 24%),
+    radial-gradient(circle at 80% 80%, rgba(32, 61, 54, 0.22), transparent 30%),
+    radial-gradient(circle at center, transparent 52%, rgba(0, 0, 0, 0.48) 100%);
+}
+
+#scene::after {
+  z-index: 9;
+  background: linear-gradient(180deg, rgba(3, 3, 4, 0.18), rgba(3, 3, 4, 0.32));
+}
+
+#sky,
+#fog,
+#dragon-layer,
+#text-layer {
+  position: absolute;
+  inset: 0;
+}
+
+#sky {
+  z-index: 0;
+  background:
+    radial-gradient(circle at 50% 6%, rgba(255, 218, 140, 0.08), transparent 18%),
+    radial-gradient(circle at 24% 18%, rgba(56, 109, 109, 0.18), transparent 32%),
+    radial-gradient(circle at 78% 8%, rgba(110, 63, 42, 0.16), transparent 26%),
+    linear-gradient(180deg, #1f2b31 0%, #0d141a 28%, #06080b 66%, #020304 100%);
+}
+
+#fog {
+  z-index: 4;
+  opacity: 0.75;
+  background:
+    radial-gradient(circle at 20% 28%, rgba(255, 255, 255, 0.07), transparent 18%),
+    radial-gradient(circle at 58% 18%, rgba(255, 212, 168, 0.06), transparent 22%),
+    radial-gradient(circle at 78% 42%, rgba(130, 190, 182, 0.06), transparent 24%),
+    radial-gradient(circle at 38% 78%, rgba(255, 255, 255, 0.04), transparent 20%);
+  animation: fogDrift 20s linear infinite;
+  transform: scale(1.08);
+  pointer-events: none;
+}
+
+#dragon-layer {
+  z-index: 6;
+  pointer-events: none;
+}
+
+.dragon {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  transform-origin: top left;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.dragon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.dragon-inner {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.36));
+}
+
+#text-layer {
+  --text-inset-left: 64px;
+  --text-inset-top: 72px;
+  --text-font-size: 24px;
+  --text-line-height: 38px;
+  --text-letter-spacing: 0.26px;
+  --text-font-family: "Palatino Linotype", "Book Antiqua", Baskerville, Georgia, serif;
+  z-index: 8;
+  color: rgba(246, 239, 228, 0.95);
+  pointer-events: none;
+}
+
+.text-eyebrow {
+  position: absolute;
+  left: var(--text-inset-left);
+  top: var(--text-inset-top);
+  color: rgba(244, 224, 194, 0.72);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  text-shadow: 0 0 22px rgba(255, 200, 120, 0.08);
+}
+
+.text-body {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  font-family: var(--text-font-family);
+  font-size: var(--text-font-size);
+  line-height: var(--text-line-height);
+  letter-spacing: var(--text-letter-spacing);
+  color: rgba(248, 241, 232, 0.94);
+  text-wrap: nowrap;
+  text-shadow:
+    0 0 16px rgba(255, 255, 255, 0.05),
+    0 0 30px rgba(0, 0, 0, 0.18);
+  will-change: transform;
+}
+
+.ember {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffdd66, #ff5500 60%, transparent);
+  filter: blur(4px);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+@keyframes fogDrift {
+  0% {
+    transform: scale(1.08) translate3d(-3%, -1%, 0);
+  }
+
+  50% {
+    transform: scale(1.08) translate3d(3%, 2%, 0);
+  }
+
+  100% {
+    transform: scale(1.08) translate3d(-3%, -1%, 0);
+  }
+}
