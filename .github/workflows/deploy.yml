@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: dragon-world/package-lock.json
 
       - run: npm ci
         working-directory: dragon-world
