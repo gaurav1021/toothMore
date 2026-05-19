@@ -20,11 +20,31 @@ const START_CURSOR = {
 export function createTypography() {
   const textLayer = document.getElementById("text-layer")
   textLayer.innerHTML = `
-    <div class="text-eyebrow">Toothmore's Chronicle</div>
+    <div class="text-header">
+      <div class="text-eyebrow">Toothmore's Chronicle</div>
+      <div class="text-actions">
+        <a
+          class="text-action"
+          href="https://gaurav1021.github.io/me/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Portfolio
+        </a>
+        <a
+          class="text-action"
+          href="https://www.linkedin.com/in/developer-by-choice"
+          target="_blank"
+          rel="noreferrer"
+        >
+          LinkedIn
+        </a>
+      </div>
+    </div>
     <div class="text-body"></div>
   `
 
-  const eyebrow = textLayer.querySelector(".text-eyebrow")
+  const header = textLayer.querySelector(".text-header")
   const body = textLayer.querySelector(".text-body")
 
   const linePool = []
@@ -47,7 +67,7 @@ export function createTypography() {
       prepared = prepareWithSegments(STORY_TEXT, metrics.font, {
         letterSpacing: metrics.letterSpacing,
       })
-      syncLayerMetrics(textLayer, eyebrow, metrics)
+      syncLayerMetrics(textLayer, header, metrics)
       dirty = true
     }
 
@@ -97,7 +117,7 @@ function getMetrics(viewportWidth, viewportHeight) {
   }
 }
 
-function syncLayerMetrics(textLayer, eyebrow, metrics) {
+function syncLayerMetrics(textLayer, header, metrics) {
   textLayer.style.setProperty("--text-inset-left", `${metrics.insetX}px`)
   textLayer.style.setProperty("--text-inset-top", `${metrics.insetTop}px`)
   textLayer.style.setProperty("--text-font-size", `${metrics.fontSize}px`)
@@ -105,7 +125,7 @@ function syncLayerMetrics(textLayer, eyebrow, metrics) {
   textLayer.style.setProperty("--text-letter-spacing", `${metrics.letterSpacing}px`)
   textLayer.style.setProperty("--text-font-family", metrics.fontFamily)
 
-  eyebrow.style.maxWidth = `${metrics.viewportWidth - metrics.insetX * 2}px`
+  header.style.maxWidth = `${metrics.viewportWidth - metrics.insetX * 2}px`
 }
 
 function metricsChanged(current, next) {
